@@ -90,7 +90,7 @@
 
     <div id="formWrap">
       <form id="reg" novalidate>
-        <input class="trap" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="trap" type="text" name="wwwk_hp" id="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true">
         <input type="email" id="email" placeholder="Email address" autocomplete="email">
         <button type="submit" id="btn">Register interest</button>
       </form>
@@ -125,7 +125,10 @@
       err = document.getElementById('err'),
       wrap = document.getElementById('formWrap'),
       done = document.getElementById('done'),
-      trap = form.querySelector('.trap');
+      trap = form.querySelector('.trap'),
+      debug = /[?&]debug=1/.test(location.search);
+  trap.value = '';
+  function note(m){ if(debug){ err.textContent = m; err.classList.remove('hide'); } }
 
   function fail(msg){ err.textContent = msg; err.classList.remove('hide'); }
   function succeed(){ wrap.classList.add('hide'); done.classList.remove('hide'); }
@@ -135,17 +138,19 @@
     err.classList.add('hide');
     var addr = (email.value || '').trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)){ fail('Please enter a valid email address.'); return; }
-    if(trap.value || Date.now() - loadedAt < 1500){ succeed(); return; }
+    if(trap.value){ note('blocked: honeypot filled'); if(!debug) succeed(); return; }
+    if(Date.now() - loadedAt < 1500){ note('blocked: too fast'); if(!debug) succeed(); return; }
+    note('sending to endpoint…');
 
     btn.disabled = true; btn.textContent = 'Sending…';
     fetch(ENDPOINT, {
       method: 'POST',
       mode: 'no-cors',
       body: new URLSearchParams({ email: addr, source: 'holding-page', submittedAt: new Date().toISOString() })
-    }).then(function(){ succeed(); })
+    }).then(function(){ if(debug){ note('fetch resolved — check the sheet'); btn.disabled=false; btn.textContent='Register interest'; return; } succeed(); })
       .catch(function(){
         btn.disabled = false; btn.textContent = 'Register interest';
-        fail('Something went wrong. Please try again or email hello@worldwhiskyweek.com.');
+        fail(debug ? 'fetch failed' : 'Something went wrong. Please try again or email hello@worldwhiskyweek.com.');
       });
   });
 })();
