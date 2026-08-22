@@ -63,22 +63,25 @@
   @media (max-width:640px){
     nav,header,footer{padding-left:22px;padding-right:22px}
     header{padding-top:112px;padding-bottom:150px}
-    form{gap:8px}
+    form{gap:8px;max-width:320px;margin-left:auto;margin-right:auto}
     button{padding:0 16px}
     .ext{display:none}
     input[type=email]{min-width:0}
     .links{gap:14px}
     .eyebrow{letter-spacing:0.2em;margin:0 0 18px}
     .coming{display:none}
+    .bar{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(5,8,19,0.94)}
+    .photo{will-change:transform;transform:translateZ(0)}
+    .ghost{display:none}
     header{min-height:0;padding:0 22px;align-items:stretch}
     .inner{animation:none}
-    html{scroll-snap-type:y proximity}
-    .hero-top{scroll-snap-align:start;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:64px 0 0;position:relative;animation:fade 0.9s ease both;text-align:center}
+    html{scroll-snap-type:none}
+    .hero-top{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:64px 0 0;position:relative;animation:fade 0.9s ease both;text-align:center}
     .hero-top h1{max-width:14ch;text-align:center;margin-left:auto;margin-right:auto}
     .arrow{display:block;position:absolute;left:50%;margin-left:-22px;bottom:36px;width:44px;height:44px;transition:opacity .3s ease;opacity:1}
     .arrow span{display:block;width:15px;height:15px;border-right:1.5px solid #cdaa6a;border-bottom:1.5px solid #cdaa6a;transform:rotate(45deg);margin:10px auto 0;animation:nudge 1.9s ease-in-out infinite}
     .scrolled .arrow{opacity:0;pointer-events:none}
-    .signup{scroll-snap-align:end;min-height:0;padding:54px 0 34px;scroll-margin-top:0;text-align:center;opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+    .signup{min-height:0;padding:54px 0 34px;scroll-margin-top:0;text-align:center;opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
     .revealed .signup{opacity:1;transform:none}
     .revealed .arrow{opacity:0;pointer-events:none}
     .arrow.up{display:none;position:static;margin:0 auto 26px;width:44px;height:30px;opacity:0;transition:opacity .4s ease}
