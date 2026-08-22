@@ -203,7 +203,6 @@
       var y = window.scrollY;
       document.body.classList.toggle('scrolled', y > 40);
       if(y > 30) reveal();
-      else if(y <= 2) unreveal();
     };
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
