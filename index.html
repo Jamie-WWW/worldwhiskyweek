@@ -32,22 +32,22 @@
   .veil-b{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,8,19,0.5) 0%,rgba(5,8,19,0) 30%,rgba(5,8,19,0.85) 100%)}
   .ghost{position:absolute;right:-2%;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-weight:500;font-size:min(58vw,820px);line-height:0.8;color:rgba(255,255,255,0.035);pointer-events:none;user-select:none}
   .inner{position:relative;max-width:1180px;width:100%;margin:0 auto;animation:fade 0.9s ease both}
-  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.32em;text-transform:uppercase;color:#cdaa6a;margin:0 0 28px}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(42px,7vw,98px);line-height:1.02;letter-spacing:-0.015em;margin:0;max-width:14ch}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,1vw,13px);letter-spacing:0.32em;text-transform:uppercase;color:#cdaa6a;margin:0 0 28px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(50px,7vw,98px);line-height:1.02;letter-spacing:-0.015em;margin:0;max-width:14ch}
   h1 span{color:#cdaa6a}
-  .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2.6vw,30px);color:#cfd3dd;margin:26px 0 0;white-space:nowrap}
-  .lede{font-size:16px;line-height:1.65;color:#9aa0b0;margin:40px 0 18px;max-width:58ch}
+  .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(21px,2.4vw,30px);color:#cfd3dd;margin:clamp(20px,2vw,26px) 0 0;white-space:nowrap}
+  .lede{font-size:clamp(14px,1.2vw,15px);line-height:1.65;color:#9aa0b0;margin:clamp(56px,5vw,72px) 0 18px;max-width:58ch}
   form{display:flex;gap:12px;max-width:520px}
-  input[type=email]{flex:1;background:rgba(11,16,34,0.85);border:1px solid rgba(255,255,255,0.16);border-radius:8px;padding:16px 18px;color:#f6f4ee;font-size:15px;outline:none}
+  input[type=email]{flex:1;background:rgba(11,16,34,0.85);border:1px solid rgba(255,255,255,0.16);border-radius:8px;padding:clamp(13px,1.1vw,14px) 16px;color:#f6f4ee;font-size:clamp(14px,1.1vw,15px);outline:none}
   input[type=email]:focus{border-color:#cdaa6a}
-  button{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#050813;background:#cdaa6a;border:none;padding:0 30px;border-radius:8px;cursor:pointer;font-weight:500}
+  button{font-family:'IBM Plex Mono',monospace;font-size:clamp(12px,1vw,13px);letter-spacing:0.12em;text-transform:uppercase;color:#050813;background:#cdaa6a;border:none;padding:0 clamp(24px,2.2vw,30px);border-radius:8px;cursor:pointer;font-weight:500}
   button:disabled{opacity:0.6;cursor:default}
   .trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
   .err{font-size:14px;color:#e0a09a;margin:12px 0 0}
   .done{max-width:520px;border:1px solid rgba(255,255,255,0.14);border-radius:10px;padding:22px 26px;background:rgba(11,16,34,0.6)}
   .done h2{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:26px;color:#cdaa6a;margin:0 0 6px}
   .done p{font-size:15px;color:#9aa0b0;margin:0}
-  .consent{font-size:13px;line-height:1.6;color:#6b7180;margin:18px 0 0;max-width:52ch}
+  .consent{font-size:clamp(12px,1vw,13px);line-height:1.6;color:#6b7180;margin:18px 0 0;max-width:52ch}
   footer{bottom:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:14px 40px;border-top:1px solid rgba(255,255,255,0.08)}
   footer p{font-size:13px;color:#6b7180;margin:0}
   .links{display:flex;align-items:center;gap:22px}
@@ -62,11 +62,10 @@
     form{flex-direction:column}
     button{width:100%;padding:16px 0}
     .links{gap:14px}
-    .eyebrow{font-size:11px;letter-spacing:0.2em;margin:0 0 18px}
-    h1{font-size:clamp(50px,12.5vw,74px);line-height:0.98;max-width:none}
-    .tagline{white-space:normal;font-size:19px;margin:20px 0 0}
-    .lede{font-size:15px;line-height:1.6;color:#8b92a2;margin:34px 0 16px}
-    .consent{font-size:12px;margin:14px 0 0}
+    .eyebrow{letter-spacing:0.2em;margin:0 0 18px}
+    h1{line-height:0.98;max-width:none}
+    .tagline{white-space:normal}
+    .lede{line-height:1.6;color:#8b92a2}
     .veil-a{background:linear-gradient(180deg,rgba(5,8,19,0.88) 0%,rgba(5,8,19,0.8) 55%,rgba(5,8,19,0.9) 100%)}
   }
 </style>
@@ -88,7 +87,7 @@
   <div class="ghost" aria-hidden="true">W</div>
 
   <div class="inner">
-    <p class="eyebrow">October 2027&nbsp;&nbsp;·&nbsp;&nbsp;Edinburgh, UK</p>
+    <p class="eyebrow">25–31 October 2027&nbsp;&nbsp;·&nbsp;&nbsp;Edinburgh, UK</p>
     <h1>The world's largest weeklong celebration of whisk<span>(e)</span>y.</h1>
     <p class="tagline">Centred in Edinburgh. Enjoyed worldwide.</p>
     <p class="lede">Our full programme is on its way. Register your interest to be first to hear about announcements, tickets and partner news.</p>
