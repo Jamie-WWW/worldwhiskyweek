@@ -58,11 +58,16 @@
   .hide{display:none}
   @media (max-width:640px){
     nav,header,footer{padding-left:22px;padding-right:22px}
-    header{padding-top:120px;padding-bottom:170px}
+    header{padding-top:112px;padding-bottom:150px}
     form{flex-direction:column}
     button{width:100%;padding:16px 0}
-    .tagline{white-space:normal}
     .links{gap:14px}
+    .eyebrow{font-size:11px;letter-spacing:0.2em;margin:0 0 18px}
+    h1{font-size:clamp(50px,12.5vw,74px);line-height:0.98;max-width:none}
+    .tagline{white-space:normal;font-size:19px;margin:20px 0 0}
+    .lede{font-size:15px;line-height:1.6;color:#8b92a2;margin:34px 0 16px}
+    .consent{font-size:12px;margin:14px 0 0}
+    .veil-a{background:linear-gradient(180deg,rgba(5,8,19,0.88) 0%,rgba(5,8,19,0.8) 55%,rgba(5,8,19,0.9) 100%)}
   }
 </style>
 </head>
@@ -102,7 +107,7 @@
       <p>We'll be in touch with programme news and ticket releases.</p>
     </div>
 
-    <p class="consent">We'll only use your address to send World Whisky Week news. Unsubscribe any time.</p>
+    <p class="consent">We'll only use your address to send World Whisky Week news. Unsubscribe any time. See our <a href="privacy.html">privacy notice</a>.</p>
   </div>
 </header>
 
@@ -125,10 +130,8 @@
       err = document.getElementById('err'),
       wrap = document.getElementById('formWrap'),
       done = document.getElementById('done'),
-      trap = form.querySelector('.trap'),
-      debug = /[?&]debug=1/.test(location.search);
+      trap = form.querySelector('.trap');
   trap.value = '';
-  function note(m){ if(debug){ err.textContent = m; err.classList.remove('hide'); } }
 
   function fail(msg){ err.textContent = msg; err.classList.remove('hide'); }
   function succeed(){ wrap.classList.add('hide'); done.classList.remove('hide'); }
@@ -138,16 +141,14 @@
     err.classList.add('hide');
     var addr = (email.value || '').trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)){ fail('Please enter a valid email address.'); return; }
-    if(trap.value){ note('blocked: honeypot filled'); if(!debug) succeed(); return; }
-    if(Date.now() - loadedAt < 1500){ note('blocked: too fast'); if(!debug) succeed(); return; }
-    note('sending to endpoint…');
+    if(trap.value || Date.now() - loadedAt < 1500){ succeed(); return; }
 
     btn.disabled = true; btn.textContent = 'Sending…';
     var qs = ENDPOINT + '?' + new URLSearchParams({ email: addr, source: 'holding-page', submittedAt: new Date().toISOString() }).toString();
-    fetch(qs, { method: 'GET', mode: 'no-cors', cache: 'no-store' }).then(function(){ if(debug){ note('fetch resolved — check the sheet'); btn.disabled=false; btn.textContent='Register interest'; return; } succeed(); })
+    fetch(qs, { method: 'GET', mode: 'no-cors', cache: 'no-store' }).then(function(){ succeed(); })
       .catch(function(){
         btn.disabled = false; btn.textContent = 'Register interest';
-        fail(debug ? 'fetch failed' : 'Something went wrong. Please try again or email hello@worldwhiskyweek.com.');
+        fail('Something went wrong. Please try again or email hello@worldwhiskyweek.com.');
       });
   });
 })();
