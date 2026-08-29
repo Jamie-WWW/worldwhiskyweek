@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Whisky Week — Edinburgh, 2027</title>
+<meta name="description" content="One week, one city, and every corner of the whisky world invited. Hosted in Edinburgh, 2027. Register your interest.">
+<meta property="og:title" content="World Whisky Week">
+<meta property="og:description" content="A week for the whole of whisky. Hosted in Edinburgh, 2027.">
+<meta property="og:type" content="website">
+<link rel="icon" href="w-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  :root{--fh:54px}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#050813;color:#f6f4ee;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body.locked{overflow:hidden}
+  ::selection{background:#cdaa6a;color:#050813}
+  input,button{font-family:inherit}
+  a{color:#cdaa6a;text-decoration:none}
+  a:hover{color:#e2c48d}
+  @keyframes nudge{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(4px,4px)}}
+  @keyframes fade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  /* fixed photo behind the whole page */
+  .photo{position:fixed;inset:0;z-index:0;background-image:url('hero-wide.jpg');background-size:cover;background-position:center 35%}
+  .veil-a{position:fixed;inset:0;z-index:1;background:linear-gradient(95deg,rgba(5,8,19,0.94) 0%,rgba(5,8,19,0.84) 42%,rgba(5,8,19,0.74) 72%,rgba(5,8,19,0.6) 100%)}
+  .veil-b{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(5,8,19,0.45) 0%,rgba(5,8,19,0) 26%,rgba(5,8,19,0.7) 78%,rgba(5,8,19,0.92) 100%)}
+  .ghost{position:fixed;right:-2%;top:50%;transform:translateY(-50%);z-index:1;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:min(52vw,820px);line-height:0.8;color:rgba(255,255,255,0.035);pointer-events:none;user-select:none}
+
+  .bar{position:fixed;left:0;right:0;z-index:50;background:rgba(5,8,19,0.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  nav{top:0;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;border-bottom:1px solid rgba(255,255,255,0.08)}
+  nav a.brand{display:flex;align-items:center;gap:13px;color:#f6f4ee}
+  nav img{width:38px;height:38px;border-radius:7px;border:1px solid rgba(255,255,255,0.14);display:block}
+  .wordmark{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:21px;letter-spacing:0.02em;line-height:1}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.18em;text-transform:uppercase}
+  .navcta{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#cdaa6a;border:1px solid rgba(205,170,106,0.5);padding:11px 20px;transition:background .25s ease,border-color .25s ease}
+  .navcta:hover{background:rgba(205,170,106,0.12);border-color:#cdaa6a;color:#e2c48d}
+
+  html{scroll-snap-type:y proximity}
+  .vision,#what,#partners,#signup{scroll-snap-align:start}
+  main{position:relative;z-index:2}
+  .wrap{max-width:1180px;width:100%;margin:0 auto;padding:0 40px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,1vw,13px);letter-spacing:0.32em;text-transform:uppercase;color:#cdaa6a;margin:0 0 28px}
+
+  /* 01 Vision — a statement */
+  .vision{position:relative;min-height:calc(100vh - var(--fh));display:flex;align-items:center;padding-top:clamp(116px,12vh,152px);padding-bottom:clamp(96px,11vh,140px)}
+  .vision .inner{animation:fade 0.9s ease both;position:relative}
+  .vision h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,5.4vw,96px);line-height:1.02;letter-spacing:-0.015em;margin:0;max-width:none}
+  .vision h1 em{font-style:italic;color:#cdaa6a}
+  .vision h1 .alt{color:#cdaa6a}
+  .vision p.body{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(19px,1.9vw,29px);line-height:1.45;color:#cfd3dd;margin:clamp(26px,2.6vw,38px) 0 0;max-width:56ch}
+  .arrow{position:absolute;left:clamp(22px,4vw,40px);bottom:clamp(52px,7vh,84px);width:44px;height:44px;display:block;z-index:3}
+  .arrow span{display:block;width:15px;height:15px;border-right:1.5px solid #cdaa6a;border-bottom:1.5px solid #cdaa6a;transform:rotate(45deg);margin:10px 0 0;animation:nudge 1.9s ease-in-out infinite}
+  .arrow.arrow-u span{transform:rotate(225deg);margin:14px 0 0 4px;animation:nudgeUp 1.9s ease-in-out infinite}
+  @keyframes nudgeUp{0%,100%{transform:rotate(225deg) translate(0,0)}50%{transform:rotate(225deg) translate(4px,4px)}}
+
+  /* shared section shell for 02–04 — fact-sheet register */
+  section.sheet{padding-top:clamp(72px,9vh,120px);padding-bottom:clamp(72px,9vh,120px);border-top:1px solid rgba(255,255,255,0.1)}
+  #what,#partners,#signup{position:relative;min-height:calc(100vh - var(--fh));display:flex;flex-direction:column;justify-content:center;padding-bottom:clamp(124px,14vh,180px)}
+  .row{display:block}
+  .num{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.24em;color:#cdaa6a;margin:0 0 14px}
+  .shot{margin:clamp(30px,3.4vw,44px) 0 0;max-width:820px;position:relative;aspect-ratio:16/7;overflow:hidden;border:1px solid rgba(255,255,255,0.12)}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.85) brightness(0.8)}
+  .shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 18px;background:linear-gradient(0deg,rgba(5,8,19,0.9),rgba(5,8,19,0));font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#8a909f;margin:0}
+  .label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#6b7180;padding-top:10px}
+  .label b{display:block;color:#cdaa6a;font-weight:500;margin-bottom:6px}
+  .sheet h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,3.2vw,50px);line-height:1.1;letter-spacing:-0.01em;margin:0;max-width:none}
+  .sheet p.body{font-size:clamp(15px,1.25vw,18px);line-height:1.65;color:#9aa0b0;margin:clamp(18px,1.8vw,26px) 0 0;max-width:56ch;text-wrap:pretty}
+  .said{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-0.01em;color:#f6f4ee;margin:0;text-wrap:pretty}
+  .said em{font-style:italic;color:#cdaa6a}
+  .c-said{font-size:clamp(27px,3.3vw,44px);line-height:1.28;max-width:none}
+  .c-foot{display:flex;align-items:flex-end;gap:clamp(20px,2.6vw,34px);margin-top:clamp(34px,4vw,52px);border-top:1px solid rgba(255,255,255,0.12);padding-top:24px;max-width:820px;flex-wrap:wrap}
+  .c-foot .sp{flex:1}
+  .c-foot .cta{margin-top:0}
+  .yr{font-family:'Cormorant Garamond',serif;font-weight:500;color:#cdaa6a;margin:0;letter-spacing:-0.02em;line-height:0.82;font-size:clamp(38px,4.6vw,66px)}
+  .yl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#8a909f;margin:0 0 4px;line-height:1.9}
+  .yl b{display:block;color:#5c6270;font-weight:400}
+  .prows{margin-top:clamp(26px,2.6vw,34px);max-width:820px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(28px,3.2vw,48px);border-top:1px solid rgba(255,255,255,0.1)}
+  .prow{display:grid;grid-template-columns:14px 1fr;gap:16px;align-items:start;padding:17px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+  .prow s{text-decoration:none;display:block;width:5px;height:5px;background:#cdaa6a;transform:rotate(45deg);margin-top:9px}
+  .prow b{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(21px,1.9vw,24px);color:#f6f4ee;line-height:1.2}
+  .prow em{display:block;font-style:normal;font-size:clamp(13px,1.05vw,14px);color:#6b7180;margin-top:5px;line-height:1.55}
+  .ribbon{margin-top:clamp(28px,3vw,40px);max-width:820px;position:relative;overflow:hidden;padding:clamp(20px,2.2vw,26px) 0;border-top:1px solid rgba(205,170,106,0.45);border-bottom:1px solid rgba(205,170,106,0.45)}
+  .ribbon::before,.ribbon::after{content:'';position:absolute;top:0;bottom:0;width:clamp(60px,10vw,120px);z-index:2;pointer-events:none}
+  .ribbon::before{left:0;background:linear-gradient(90deg,#050813 20%,rgba(5,8,19,0))}
+  .ribbon::after{right:0;background:linear-gradient(270deg,#050813 20%,rgba(5,8,19,0))}
+  .track{display:flex;width:max-content;animation:slide 52s linear infinite;will-change:transform}
+  @keyframes slide{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+  .item{display:flex;align-items:center;gap:14px;padding:0 26px;white-space:nowrap}
+  .item .i{display:block;flex:0 0 auto;width:26px;height:26px;background:#cdaa6a;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+  .item span{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,1.9vw,23px);color:#f0eee8}
+  .sep{display:flex;align-items:center;padding:0 2px}
+  .sep b{display:block;width:4px;height:4px;background:#cdaa6a;transform:rotate(45deg)}
+  .cta{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#cdaa6a;margin-top:clamp(22px,2.2vw,30px);border-bottom:1px solid rgba(205,170,106,0.35);padding-bottom:5px}
+  .cta:hover{border-bottom-color:#e2c48d}
+
+  /* 04 Sign up */
+  form{margin-top:clamp(26px,2.8vw,34px);max-width:820px}
+  .who-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#8a909f;margin:0 0 11px}
+  .pills{display:flex;gap:clamp(16px,2vw,22px);margin-bottom:clamp(20px,2.4vw,26px)}
+  .pill{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#5c6270;background:none;border:0;border-bottom:1px solid transparent;border-radius:0;padding:0 0 5px;cursor:pointer;transition:color .25s ease,border-color .25s ease}
+  .pill:hover{color:#8a909f}
+  .pill[aria-pressed=true]{color:#cdaa6a;border-bottom-color:#cdaa6a}
+  .field{display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,0.26);padding-bottom:11px;transition:border-color .25s ease}
+  .field:focus-within{border-bottom-color:#cdaa6a}
+  input[type=email]{flex:1;min-width:0;background:none;border:0;border-radius:0;outline:none;color:#f6f4ee;font-size:clamp(15px,1.2vw,16px);padding:0}
+  input[type=email]::placeholder{color:#5c6270}
+  button[type=submit]{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#cdaa6a;background:none;border:0;padding:0;cursor:pointer;white-space:nowrap;transition:color .25s ease}
+  button[type=submit]:hover{color:#e2c48d}
+  button[type=submit]:disabled{opacity:0.5;cursor:default}
+  .trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+  .err{font-size:14px;color:#e0a09a;margin:12px 0 0}
+  .done{max-width:820px;border-left:1px solid rgba(205,170,106,0.5);padding:4px 0 4px 20px;margin-top:clamp(26px,2.8vw,34px)}
+  .done h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:24px;color:#cdaa6a;margin:0 0 5px}
+  .done p{font-size:14px;color:#9aa0b0;margin:0}
+  .consent{font-size:clamp(12px,1vw,13px);line-height:1.6;color:#6b7180;margin:20px 0 0;max-width:52ch}
+  .hide{display:none}
+
+  footer{position:fixed;left:0;right:0;bottom:0;z-index:45;height:var(--fh);display:flex;align-items:center;background:rgba(5,8,19,0.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(205,170,106,0.3);background:rgba(5,8,19,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .c-bot{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%}
+  main{padding-bottom:calc(var(--fh) + 8px)}
+  .c-right{display:flex;align-items:center;gap:20px}
+  .err{font-size:14px;color:#e0a09a;margin:12px 0 0}
+  .meta{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:#5c6270;white-space:nowrap}
+  .socials{display:flex;gap:13px}
+  .socials svg{width:15px;height:15px;display:block;fill:currentColor}
+  .socials a,.socials span{display:flex;padding:6px;color:#8a909f}
+  .socials span{color:#3d434f}
+  .socials a:hover{color:#cdaa6a}
+  .socials{gap:5px;margin-right:-6px}
+
+  /* age gate */
+  .gate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(3,5,12,0.97);padding:40px 24px;text-align:center}
+  .gate img{width:56px;height:56px;border-radius:10px;border:1px solid rgba(255,255,255,0.14);margin:0 auto 26px;display:block}
+  .gate .gm{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(26px,3vw,38px);line-height:1.15;margin:0 0 14px}
+  .gate .gs{font-size:14px;line-height:1.6;color:#8a909f;margin:0 auto 30px;max-width:34ch}
+  .gate button{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#050813;background:#cdaa6a;border:none;padding:15px 34px;border-radius:8px;cursor:pointer;font-weight:500}
+  .gate .gl{font-size:12px;color:#5c6270;margin:26px 0 0}
+
+  @media (max-width:820px){
+    .row{grid-template-columns:1fr;gap:14px}
+    .label{padding-top:0}
+    .label b{display:inline;margin:0}
+    .label b::after{content:' ·';color:#3d434f}
+  }
+  @media (max-width:640px){
+    nav{padding:16px 22px}
+    .wrap{padding:0 22px}
+    .navmeta{font-size:10px;letter-spacing:0.14em}
+    .wordmark{font-size:18px}
+    nav img{width:32px;height:32px}
+    .photo{background-image:url('hero-narrow.jpg')}
+    .ghost{display:none}
+    .veil-a{background:linear-gradient(180deg,rgba(5,8,19,0.88) 0%,rgba(5,8,19,0.8) 55%,rgba(5,8,19,0.9) 100%)}
+    .vision{min-height:calc(100dvh - var(--fh));padding-top:112px;padding-bottom:112px}
+    .vision h1{font-size:clamp(36px,10vw,46px);line-height:1.06;max-width:none}
+    .vision p.body{font-size:19px;max-width:none}
+    .lb{display:none}
+    .eyebrow{letter-spacing:0.2em;margin:0 0 18px}
+    .pills{gap:18px}
+    .pill{position:relative;padding:0 0 5px}
+    .pill::before{content:'';position:absolute;left:0;right:0;top:-13px;bottom:-13px}
+    input[type=email]{min-height:44px}
+    button[type=submit]{display:inline-flex;align-items:center;min-height:44px;padding:0}
+    .prow{padding:14px 0}
+.prows{margin-top:22px}
+    :root{--fh:50px}
+    .c-bot > .meta{display:none}
+    .c-right{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .meta{font-size:9px;letter-spacing:0.1em}
+    .socials{gap:0;margin-left:-11px;margin-right:0}
+    .socials a,.socials span{padding:13px 11px}
+    .socials svg{width:17px;height:17px}
+    .navcta{padding:10px 14px;font-size:10px;letter-spacing:0.12em}
+    #what,#partners,#signup{min-height:calc(100dvh - var(--fh))}
+    .num{letter-spacing:0.18em;margin-bottom:10px}
+.prows{grid-template-columns:1fr}
+    .c-said{font-size:clamp(26px,7.4vw,32px);line-height:1.26}
+    .c-said br{display:none}
+    .c-said br:last-of-type{display:inline}
+    .c-foot{margin-top:30px;padding-top:20px;gap:16px;align-items:baseline}
+    .c-foot .sp{display:none}
+    .c-foot .cta{width:100%;margin-top:6px}
+    .yr{font-size:44px}
+    section.sheet{padding-top:112px;padding-bottom:112px}
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="gate" id="gate">
+  <div>
+    <img class="wm" data-src="w-mark.png" alt="World Whisky Week">
+    <p class="gm">Are you over 18?</p>
+    <p class="gs">You must be of legal drinking age to enter this site.</p>
+    <button type="button" id="gateBtn">I'm over 18</button>
+    <p class="gl">Please enjoy whisky responsibly.</p>
+  </div>
+</div>
+
+<div class="photo"></div>
+<div class="veil-a"></div>
+<div class="veil-b"></div>
+<div class="ghost" aria-hidden="true">W</div>
+
+
+<nav class="bar">
+  <a class="brand" href="#top">
+    <img class="wm" data-src="w-mark.png" alt="World Whisky Week">
+    <span class="wordmark">World Whisky Week</span>
+  </a>
+  <a class="navcta" href="#signup">Sign up</a>
+</nav>
+
+<main id="top">
+
+  <section class="vision wrap" id="vision">
+    <div class="inner">
+      <p class="eyebrow">Edinburgh · 2027</p>
+      <h1>Whisk<span class="alt">(e)</span>y was always<br> made to be <em>shared</em>.</h1>
+      <p class="body">One week, one host city, celebrated globally.</p>
+    </div>
+    <a class="arrow" href="#what" aria-label="Read on"><span></span></a>
+  </section>
+
+  <section class="sheet wrap" id="what">
+    <div class="row">
+      <div>
+        <p class="num">02</p>
+        <p class="eyebrow">Edinburgh · 2027</p>
+        <h2>A week for the whole of whisky.</h2>
+        <p class="body">From first drams to rare bottles, from cocktail bars to warehouse floors. Every part of whisky, in one week.</p>
+        <div class="ribbon"><div class="track" id="strandTrack"></div></div>
+      </div>
+    </div>
+    <a class="arrow" href="#partners" aria-label="Read on"><span></span></a>
+  </section>
+
+  <section class="sheet wrap" id="partners">
+    <div class="row">
+      <div>
+        <p class="num">03</p>
+        <p class="said c-said">Created for those who make it, support it,<br>sell it, drink it, and celebrate it.<br><em>Not for profit, for whisk(e)y.</em></p>
+        <div class="c-foot">
+          <p class="yr">2027</p>
+          <p class="yl"><b>The first</b>Edinburgh</p>
+          <span class="sp"></span>
+          <a class="cta" href="mailto:hello@worldwhiskyweek.com?subject=Partnership%20pack%20%26%20press%20enquiries">Partnership pack →</a>
+        </div>
+      </div>
+    </div>
+    <a class="arrow" href="#signup" aria-label="Read on"><span></span></a>
+  </section>
+
+
+  <section class="sheet wrap" id="signup">
+    <div class="row">
+      <div>
+        <p class="num">04</p>
+        <h2>Be first to know.</h2>
+        <p class="body">We'll write when there's something worth saying. Not before.</p>
+        <div id="formWrap">
+          <form id="reg" novalidate>
+            <input class="trap" type="text" name="wwwk_hp" id="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true">
+            <p class="who-lbl">You are</p>
+            <div class="pills" role="group" aria-label="Which are you?">
+              <button type="button" class="pill" data-val="trade" aria-pressed="false">In the trade</button>
+              <button type="button" class="pill" data-val="drinker" aria-pressed="false">A whisky drinker</button>
+            </div>
+            <div class="field">
+              <input type="email" id="email" placeholder="Email address" autocomplete="email">
+              <button type="submit" id="btn">Join the list →</button>
+            </div>
+          </form>
+          <p class="err hide" id="err"></p>
+        </div>
+        <div class="done hide" id="done">
+          <h3>Sláinte — you're on the list.</h3>
+          <p>We'll be in touch when there's something worth saying.</p>
+        </div>
+        <p class="consent">We'll only use your address to send World Whisky Week news. Unsubscribe any time. See our <a href="privacy.html">privacy notice</a>.</p>
+      </div>
+    </div>
+    <a class="arrow arrow-u" href="#vision" aria-label="Back to top"><span></span></a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap c-bot">
+    <span class="meta">World Whisky Week · Edinburgh · <a href="mailto:hello@worldwhiskyweek.com">hello@worldwhiskyweek.com</a></span>
+    <span class="c-right"><span class="socials">
+        <a href="https://www.instagram.com/worldwhiskyweek/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.12.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.12-1.38.66-.66 1.08-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.12C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zm0 10.16a4 4 0 110-8 4 4 0 010 8z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a>
+        <span aria-label="LinkedIn — coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+        <span aria-label="X — coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.96 6.82H1.68l7.73-8.83L1.25 2.25h6.82l4.71 6.23 5.46-6.23zm-1.16 17.52h1.83L7.08 4.13H5.11l11.97 15.64z"/></svg></span>
+        <span aria-label="Facebook — coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></span></span><span class="meta">Over 18s · <a href="privacy.html">Privacy</a></span></span>
+  </div>
+</footer><script>
+(function(){
+
+
+
+
+  var ICON_BASE = '';
+  Array.prototype.forEach.call(document.querySelectorAll('img.wm'), function(i){ i.src = i.dataset.src + location.search; });
+  (function(){
+    var photo = document.querySelector('.photo');
+    if(!photo) return;
+    var mq = matchMedia('(max-width:640px)');
+    function set(){ photo.style.backgroundImage = "url('hero-" + (mq.matches ? 'narrow' : 'wide') + ".jpg" + location.search + "')"; }
+    set();
+    mq.addEventListener ? mq.addEventListener('change', set) : mq.addListener(set);
+  })();
+  var STRANDS = [
+    ['Central Hub','icon-hub.png'],
+    ['Exhibition','icon-exhibition.png'],
+    ['Tastings & Events','icon-tastings.png'],
+    ['Bar Takeovers','icon-bar.png'],
+    ['Distillery Tours','icon-distillery.png'],
+    ['Tutorials & Seminars','icon-tutorials.png'],
+    ['Competitions','icon-cocktail.png'],
+    ['Retail & Hospitality Partners','icon-retail.png'],
+    ['Activations','icon-activations.png'],
+    ['Awards','icon-awards.png'],
+    ['Auctions','icon-auction.png']
+  ];
+  (function(){
+    var track = document.getElementById('strandTrack');
+    if(!track) return;
+    for(var pass = 0; pass < 2; pass++){
+      STRANDS.forEach(function(s){
+        var item = document.createElement('div'); item.className = 'item';
+        var ic = document.createElement('div'); ic.className = 'i';
+        var u = "url('" + ICON_BASE + s[1] + location.search + "')";
+        ic.style.webkitMaskImage = u; ic.style.maskImage = u;
+        var tx = document.createElement('span'); tx.textContent = s[0];
+        item.appendChild(ic); item.appendChild(tx);
+        track.appendChild(item);
+        var sep = document.createElement('div'); sep.className = 'sep';
+        sep.appendChild(document.createElement('b'));
+        track.appendChild(sep);
+      });
+    }
+  })();
+
+  var gate = document.getElementById('gate');
+  try{ if(gate && localStorage.getItem('wwwk_age') === 'ok'){ gate.remove(); gate = null; document.body.classList.remove('locked'); } }catch(e){}
+  var gateBtn = document.getElementById('gateBtn');
+  if(gate && gateBtn){
+    gateBtn.addEventListener('click', function(){
+      try{ localStorage.setItem('wwwk_age','ok'); }catch(e){}
+      gate.style.opacity = '0';
+      gate.style.transition = 'opacity .35s ease';
+      document.body.classList.remove('locked');
+      setTimeout(function(){ gate.remove(); }, 360);
+    });
+  } else {
+    document.body.classList.remove('locked');
+  }
+
+  var audience = '';
+  var pills = document.querySelectorAll('.pill');
+  Array.prototype.forEach.call(pills, function(p){
+    p.addEventListener('click', function(){
+      audience = p.dataset.val;
+      Array.prototype.forEach.call(pills, function(q){ q.setAttribute('aria-pressed', String(q === p)); });
+      err.classList.add('hide');
+    });
+  });
+
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycby1vZx4QSh5wvXj0bs1AUY79uEhNxpPvf3uY9kdlkHhNfFWWyih1iGN5TH1zJ72fbFF/exec';
+  var loadedAt = Date.now();
+  var form = document.getElementById('reg'),
+      email = document.getElementById('email'),
+      btn = document.getElementById('btn'),
+      err = document.getElementById('err'),
+      wrap = document.getElementById('formWrap'),
+      done = document.getElementById('done'),
+      trap = form.querySelector('.trap');
+  trap.value = '';
+
+  function fail(msg){ err.textContent = msg; err.classList.remove('hide'); }
+  function succeed(){ wrap.classList.add('hide'); done.classList.remove('hide'); }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.classList.add('hide');
+    if(!audience){ fail('Please tell us which one you are.'); return; }
+    var addr = (email.value || '').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)){ fail('Please enter a valid email address.'); return; }
+    if(trap.value || Date.now() - loadedAt < 1500){ succeed(); return; }
+
+    btn.disabled = true; btn.textContent = 'Sending…';
+    var qs = ENDPOINT + '?' + new URLSearchParams({ email: addr, audience: audience, source: 'holding-page', submittedAt: new Date().toISOString() }).toString();
+    fetch(qs, { method: 'GET', mode: 'no-cors', cache: 'no-store' }).then(function(){ succeed(); })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = 'Join the list →';
+        fail('Something went wrong. Please try again or email hello@worldwhiskyweek.com.');
+      });
+  });
+})();
+</script>
+</body>
+</html>
